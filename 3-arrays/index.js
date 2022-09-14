@@ -74,7 +74,13 @@ const TITLES = [
   "по долинам и по взморьям",
 ];
 
+const Likes = { MIN: 0, MAX: 100 };
+const IdScore = { MIN: 1, MAX: 100 };
+const AvatarsId = { MIN: 1, MAX: 6 };
+
 const COMMEMTS_ID = [];
+
+let postsSum = 25;
 
 const getPositiveInt = (num) => {
   return Math.trunc(Math.abs(num));
@@ -88,10 +94,10 @@ const getRandomInt = (num1, num2) => {
 
 const createComment = () => {
   return {
-    id: getId(COMMEMTS_ID, (min = 1), (max = 100)),
-    avatar: getUrl("avatar", getRandomInt(1, 6)),
+    id: getId(COMMEMTS_ID, IdScore.MIN, IdScore.MAX),
+    avatar: getUrl("avatar", getRandomInt(AvatarsId.MIN, AvatarsId.MAX)),
     message: getMessage(MESSAGES),
-    name: NAMES[getRandomInt(0, 24)],
+    name: NAMES[getRandomInt(0, NAMES.length - 1)],
   };
 };
 
@@ -134,7 +140,7 @@ const createPost = (intId) => {
     id: intId,
     url: getUrl("photo", intId),
     description: TITLES[--intId],
-    likes: getRandomInt(15, 200),
+    likes: getRandomInt(Likes.MIN, Likes.MAX),
     comments: JSON.stringify(setComments()),
   };
 };
